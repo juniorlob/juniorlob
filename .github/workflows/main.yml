@@ -13,8 +13,6 @@ jobs:
     steps:
     - name: Checkout profile README repo (juniorlob/juniorlob)
       uses: actions/checkout@v2
-      with:
-        path: 'profile-readme'
 
     - name: Checkout source README repo (juniorlob/juniorlob.github.io)
       uses: actions/checkout@v2
@@ -24,11 +22,10 @@ jobs:
 
     - name: Copy README
       run: |
-        cp source-readme/README.md profile-readme/README.md
+        cp source-readme/README.md README.md
 
     - name: Commit and Push
       run: |
-        cd profile-readme
         git config user.name github-actions
         git config user.email github-actions@github.com
         git add README.md
