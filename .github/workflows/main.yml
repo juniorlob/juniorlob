@@ -30,4 +30,5 @@ jobs:
         git config user.email github-actions@github.com
         git add README.md
         git commit -m "Update README from juniorlob.github.io repository" -a
-        git push
+        git push https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/juniorlob/juniorlob.git
+
