@@ -1,0 +1,36 @@
+name: Sync README
+
+on:
+  schedule:
+    # This schedule runs every day at midnight UTC. You can adjust it as needed.
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync-readme-job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout profile README repo (juniorlob/juniorlob)
+      uses: actions/checkout@v2
+      with:
+        path: 'profile-readme'
+
+    - name: Checkout source README repo (juniorlob/juniorlob.github.io)
+      uses: actions/checkout@v2
+      with:
+        repository: 'juniorlob/juniorlob.github.io'
+        path: 'source-readme'
+
+    - name: Copy README
+      run: |
+        cp source-readme/README.md profile-readme/README.md
+
+    - name: Commit and Push
+      run: |
+        cd profile-readme
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add README.md
+        git commit -m "Update README from juniorlob.github.io repository" -a
+        git push
